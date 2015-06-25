@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">R.tools</string>
+    <string name="no_item">No qualifiers are selected</string>
+
+    <string-array name="qualifiers">
+        <item>@string/mcc</item>
+        <item>@string/mnc</item>
+        <item>@string/locale</item>
+        <item>@string/ld</item>
+        <item>@string/sw</item>
+        <item>@string/aw</item>
+        <item>@string/ah</item>
+        <item>@string/size</item>
+        <item>@string/aspect</item>
+        <item>@string/orientation</item>
+        <item>@string/ui_mode</item>
+        <item>@string/night_mode</item>
+        <item>@string/dpi</item>
+        <item>@string/touchscreen_type</item>
+        <item>@string/keyboard</item>
+        <item>@string/text_input</item>
+        <item>@string/navigation</item>
+        <item>@string/non_touch_navigation</item>
+        <item>@string/api_level</item>
+    </string-array>
+
+    <string name="mcc">MCC</string>
+    <string name="mnc">MNC</string>
+    <string name="locale">Language and region</string>
+    <string name="ld">Layout Direction</string>
+    <string name="sw">smallestWidth</string>
+    <string name="aw">Available width</string>
+    <string name="ah">Available height</string>
+    <string name="size">Screen size</string>
+    <string name="aspect">Screen aspect</string>
+    <string name="orientation">Screen orientation</string>
+    <string name="ui_mode">UI mode</string>
+    <string name="night_mode">Night mode</string>
+    <string name="dpi">Screen pixel density (dpi)</string>
+    <string name="touchscreen_type">Touchscreen type</string>
+    <string name="keyboard">Keyboard availability</string>
+    <string name="text_input">Primary text input method</string>
+    <string name="navigation">Navigation key availability</string>
+    <string name="non_touch_navigation">Primary non-touch navigation method</string>
+    <string name="api_level">Platform Version (API level)</string>
+    <string name="qualifiers">qualifiers</string>
+    <string name="copy_toast_message">Qualifiers was copied to your clipboard</string>
+
+    <string name="keyboard_available">undefined</string>
+</resources>
