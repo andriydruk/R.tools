@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".ResourceActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,19 +18,19 @@
         <activity
             android:name=".QualifierDetailActivity"
             android:label="@string/title_qualifier_detail"
-            android:parentActivityName=".ResourceActivity" >
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ResourceActivity" />
+                android:value=".MainActivity" />
         </activity>
 
         <activity
                 android:name=".LicensesActivity"
                 android:label="@string/licences"
-                android:parentActivityName=".ResourceActivity" >
+                android:parentActivityName=".MainActivity" >
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value=".ResourceActivity" />
+                    android:value=".MainActivity" />
         </activity>
         <activity
                 android:name=".HTMLViewerActivity">

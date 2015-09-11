@@ -16,10 +16,14 @@
 
 package com.druk.rtools;
 
+import com.druk.rtools.databinding.ActivityMainBinding;
+
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,33 +37,24 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ResourceActivity extends AppCompatActivity implements View.OnClickListener, QualifierListFragment.Callbacks {
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+public class MainActivity extends AppCompatActivity implements QualifierListFragment.Callbacks, View.OnClickListener {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
-    private boolean mTwoPane;
-    private String mFolderName;
+    private ActivityMainBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("TAG", "onCreate");
-        setContentView(R.layout.activity_qualifier_list);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        if (findViewById(R.id.qualifier_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-large and
-            // res/values-sw600dp). If this view is present, then the
-            // activity should be in two-pane mode.
-            mTwoPane = true;
-        }
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        mBinding.qualifiers.setOnClickListener(this);
+        setSupportActionBar(mBinding.toolbar);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -87,19 +82,31 @@ public class ResourceActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            if (!TextUtils.isEmpty(mFolderName)) {
-                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText(getString(R.string.qualifiers), ((TextView) v).getText().toString());
-                clipboard.setPrimaryClip(clip);
+            // FIXME: 9/11/15
+            //String folderName = mBinding.getFolderName();
 
-                Toast.makeText(ResourceActivity.this, getString(R.string.copy_toast_message), Toast.LENGTH_SHORT).show();
+            //~~~~  Temporary solution ~~~~
+            String folderName = null;
+            try {
+                Method method = mBinding.getClass().getMethod("getFolderName");
+                folderName = (String) method.invoke(mBinding);
+            } catch (SecurityException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+            if (!TextUtils.isEmpty(folderName)) {
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText(getString(R.string.qualifiers), folderName);
+                clipboard.setPrimaryClip(clip);
+                Toast.makeText(this, getString(R.string.copy_toast_message), Toast.LENGTH_SHORT).show();
             }
         }
     }
 
     @Override
     public void onItemSelected(int id) {
-        if (mTwoPane) {
+        if (mBinding.qualifierDetailContainer != null) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
             // fragment transaction.
@@ -118,16 +125,6 @@ public class ResourceActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onFolderNameChanged(String folderName) {
-        TextView textView = (TextView) findViewById(R.id.qualifiers);
-        if (TextUtils.isEmpty(folderName)) {
-            textView.setText(R.string.no_item);
-            textView.setTextColor(getResources().getColor(R.color.material_deep_teal_200));
-            textView.setOnClickListener(null);
-        } else {
-            textView.setText(folderName);
-            textView.setTextColor(Color.WHITE);
-            textView.setOnClickListener(this);
-        }
-        mFolderName = folderName;
+        mBinding.setFolderName(folderName);
     }
 }

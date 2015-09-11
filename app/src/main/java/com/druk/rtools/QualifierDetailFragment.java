@@ -27,7 +27,7 @@ import android.view.ViewGroup;
 
 /**
  * A fragment representing a single Qualifier detail screen.
- * This fragment is either contained in a {@link ResourceActivity}
+ * This fragment is either contained in a {@link MainActivity}
  * in two-pane mode (on tablets) or a {@link QualifierDetailActivity}
  * on handsets.
  */
