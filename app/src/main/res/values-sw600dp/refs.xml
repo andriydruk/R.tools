@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ Copyright (C) 2015 Andriy Druk
   ~
@@ -17,7 +15,12 @@
 -->
 
 <resources>
+    <!--
+    Layout alias to replace the single-pane version of the layout with a
+    two-pane version on Large screens.
 
-    <string name="keyboard_available">keysexposed</string>
-
+    For more on layout aliases, see:
+    http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
+    -->
+    <item type="layout" name="activity_qualifier_list">@layout/activity_qualifier_twopane</item>
 </resources>

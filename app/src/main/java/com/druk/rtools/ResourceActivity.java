@@ -19,48 +19,45 @@ package com.druk.rtools;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Collection;
+public class ResourceActivity extends AppCompatActivity implements View.OnClickListener, QualifierListFragment.Callbacks {
 
-
-public class ResourceActivity extends AppCompatActivity implements View.OnClickListener, QualifierAdapter.OnItemSelectedListener {
-
-    private static final String PARAM_SELECTED_BOOLEAN_SPARSE = "com.druk.rtools.PARAM_SELECTED_BOOLEAN_SPARSE";
-
-    private QualifierAdapter mAdapter;
+    /**
+     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
+     * device.
+     */
+    private boolean mTwoPane;
+    private String mFolderName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_resource);
-        String[] qualifierNames = getResources().getStringArray(R.array.qualifiers);
-        boolean[] checkedQualifiers;
-        if (savedInstanceState != null) {
-            checkedQualifiers = savedInstanceState.getBooleanArray(PARAM_SELECTED_BOOLEAN_SPARSE);
-        } else {
-            checkedQualifiers = new boolean[qualifierNames.length];
+        Log.d("TAG", "onCreate");
+        setContentView(R.layout.activity_qualifier_list);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        if (findViewById(R.id.qualifier_detail_container) != null) {
+            // The detail container view will be present only in the
+            // large-screen layouts (res/values-large and
+            // res/values-sw600dp). If this view is present, then the
+            // activity should be in two-pane mode.
+            mTwoPane = true;
         }
-
-        mAdapter = new QualifierAdapter(this, checkedQualifiers, this);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
-
-        onItemSelected(mAdapter.getSelectedQualifiers());
     }
 
 
@@ -76,27 +73,21 @@ public class ResourceActivity extends AppCompatActivity implements View.OnClickL
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        //int id = item.getItemId();
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_license) {
+            startActivity(new Intent(this, LicensesActivity.class));
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putBooleanArray(PARAM_SELECTED_BOOLEAN_SPARSE, mAdapter.getSelectedItemArray());
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mAdapter = null;
-    }
-
-    @Override
     public void onClick(View v) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            if (!TextUtils.isEmpty(getResourceFolderName(mAdapter.getSelectedQualifiers()))) {
+            if (!TextUtils.isEmpty(mFolderName)) {
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText(getString(R.string.qualifiers), ((TextView) v).getText().toString());
                 clipboard.setPrimaryClip(clip);
@@ -107,9 +98,27 @@ public class ResourceActivity extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
-    public void onItemSelected(Collection<Qualifier> selectedQualifiers) {
+    public void onItemSelected(int id) {
+        if (mTwoPane) {
+            // In two-pane mode, show the detail view in this activity by
+            // adding or replacing the detail fragment using a
+            // fragment transaction.
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.qualifier_detail_container, QualifierDetailFragment.newInstance(id))
+                    .commit();
+
+        } else {
+            // In single-pane mode, simply start the detail activity
+            // for the selected item ID.
+            Intent detailIntent = new Intent(this, QualifierDetailActivity.class);
+            detailIntent.putExtra(QualifierDetailFragment.ARG_ITEM_ID, id);
+            startActivity(detailIntent);
+        }
+    }
+
+    @Override
+    public void onFolderNameChanged(String folderName) {
         TextView textView = (TextView) findViewById(R.id.qualifiers);
-        String folderName = getResourceFolderName(selectedQualifiers);
         if (TextUtils.isEmpty(folderName)) {
             textView.setText(R.string.no_item);
             textView.setTextColor(getResources().getColor(R.color.material_deep_teal_200));
@@ -119,18 +128,6 @@ public class ResourceActivity extends AppCompatActivity implements View.OnClickL
             textView.setTextColor(Color.WHITE);
             textView.setOnClickListener(this);
         }
+        mFolderName = folderName;
     }
-
-    public String getResourceFolderName(Collection<Qualifier> qualifiers) {
-        StringBuilder result = new StringBuilder();
-        for (Qualifier qualifier : qualifiers) {
-            result.append(qualifier.getValue(this)).append("-");
-        }
-        if (result.length() > 0) {
-            result.deleteCharAt(result.length() - 1);
-        }
-        return result.toString();
-    }
-
-
 }

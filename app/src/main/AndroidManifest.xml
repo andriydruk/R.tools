@@ -8,13 +8,34 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.druk.rtools.ResourceActivity"
+            android:name=".ResourceActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".QualifierDetailActivity"
+            android:label="@string/title_qualifier_detail"
+            android:parentActivityName=".ResourceActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ResourceActivity" />
+        </activity>
+
+        <activity
+                android:name=".LicensesActivity"
+                android:label="@string/licences"
+                android:parentActivityName=".ResourceActivity" >
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".ResourceActivity" />
+        </activity>
+        <activity
+                android:name=".HTMLViewerActivity">
+        </activity>
+
     </application>
 
 </manifest>

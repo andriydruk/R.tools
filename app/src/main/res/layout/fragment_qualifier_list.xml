@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ Copyright (C) 2015 Andriy Druk
   ~
@@ -16,8 +14,8 @@
   ~ limitations under the License.
 -->
 
-<resources>
-
-    <string name="keyboard_available">keysexposed</string>
-
-</resources>
+<android.support.v7.widget.RecyclerView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>

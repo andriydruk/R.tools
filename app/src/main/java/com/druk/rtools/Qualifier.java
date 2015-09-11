@@ -18,22 +18,70 @@ package com.druk.rtools;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.databinding.BindingAdapter;
 import android.os.Build;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.TextView;
 
 public enum Qualifier {
 
-    MMC(R.string.mcc), MNC(R.string.mnc), LOCALE(R.string.locale), LD(R.string.ld), SW(R.string.sw), AW(R.string.aw), AH(R.string.ah),
-    SIZE(R.string.size), ASPECT(R.string.aspect), ORIENTATION(R.string.orientation), UI_MODE(R.string.ui_mode), NIGHT_MODE(R.string.night_mode),
-    DPI(R.string.dpi), TOUCHSCREEN_TYPE(R.string.touchscreen_type), KEYBOARD(R.string.keyboard), TEXT_INPUT(R.string.text_input),
-    NAVIGATION(R.string.navigation), NON_TOUCH_NAVIGATION(R.string.non_touch_navigation), API_LEVEL(R.string.api_level);
+    MMC(R.string.mcc, R.string.mcc_description, 1, R.string.mcc_caution),
+    MNC(R.string.mnc, R.string.mcc_description, 1, R.string.mcc_caution),
+    LOCALE(R.string.locale, R.string.locale_description, 1, R.string.locale_caution),
+    LD(R.string.ld, R.string.ld_description, 17, -1, R.string.ld_note),
+    SW(R.string.sw, R.string.sw_description, 13),
+    AW(R.string.aw, R.string.aw_description, 13, R.string.orientation_caution),
+    AH(R.string.ah, R.string.ah_description, 13, R.string.orientation_caution),
+    SIZE(R.string.size, R.string.size_description, 4, R.string.size_caution, R.string.size_note),
+    ASPECT(R.string.aspect, R.string.aspect_description, 4),
+    ORIENTATION(R.string.orientation, R.string.orientation_description, 1, R.string.orientation_caution),
+    UI_MODE(R.string.ui_mode, R.string.ui_mode_description, 8, R.string.ui_mode_caution),
+    NIGHT_MODE(R.string.night_mode, R.string.night_mode_description, 8, R.string.night_mode_caution),
+    DPI(R.string.dpi, R.string.dpi_description, 1, -1, R.string.dpi_note),
+    TOUCHSCREEN_TYPE(R.string.touchscreen_type, R.string.touchscreen_type_description, 1),
+    KEYBOARD(R.string.keyboard, R.string.keyboard_description, 1, R.string.keyboard_caution),
+    TEXT_INPUT(R.string.text_input, R.string.text_input_description, 1),
+    NAVIGATION(R.string.navigation, R.string.navigation_description, 1, R.string.navigation_caution),
+    NON_TOUCH_NAVIGATION(R.string.non_touch_navigation, R.string.non_touch_navigation_description, 1),
+    API_LEVEL(R.string.api_level, R.string.api_level_description, 1);
 
     public int nameResource;
+    public int descriptionResource;
+    public int cautionResource = -1;
+    public int noteResource = -1;
+    public int minApiLevel = 1;
 
-    Qualifier(int name){
+    public String descriptionPath = "mcc_description.html"; //assets file path
+
+    Qualifier(int name, int resource, int minApiLevel){
         this.nameResource = name;
+        this.descriptionResource = resource;
+        this.minApiLevel = minApiLevel;
+    }
+
+    Qualifier(int name, int resource, int minApiLevel, int cautionResource){
+        this.nameResource = name;
+        this.descriptionResource = resource;
+        this.minApiLevel = minApiLevel;
+        this.cautionResource = cautionResource;
+    }
+
+    Qualifier(int name, int resource, int minApiLevel, int cautionResource, int noteResource){
+        this.nameResource = name;
+        this.descriptionResource = resource;
+        this.minApiLevel = minApiLevel;
+        this.cautionResource = cautionResource;
+        this.noteResource = noteResource;
+    }
+
+    public static Qualifier getQualifier(int ordinal){
+        if (ordinal < 0 || ordinal >= values().length){
+            throw new IllegalArgumentException("Wrong ordinal " + ordinal);
+        }
+        return values()[ordinal];
     }
 
     @Nullable
