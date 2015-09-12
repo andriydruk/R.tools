@@ -54,6 +54,12 @@ public class MainActivity extends AppCompatActivity implements QualifierListFrag
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mBinding.qualifiers.setOnClickListener(this);
         setSupportActionBar(mBinding.toolbar);
+
+        if (mBinding.qualifierDetailContainer != null && savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.qualifier_detail_container, QualifierDetailFragment.newInstance(Qualifier.MMC.ordinal()))
+                    .commit();
+        }
     }
 
     @Override

@@ -41,6 +41,7 @@ import java.util.Collection;
 public class QualifierListFragment extends Fragment implements QualifierAdapter.OnItemSelectedListener {
 
     private static final String PARAM_SELECTED_BOOLEAN_SPARSE = "com.druk.rtools.PARAM_SELECTED_BOOLEAN_SPARSE";
+    private static final String PARAM_SELECTED_ITEM = "com.druk.rtools.PARAM_SELECTED_ITEM";
 
     /**
      * The fragment's current callback object, which is notified of list item
@@ -93,17 +94,20 @@ public class QualifierListFragment extends Fragment implements QualifierAdapter.
 
         String[] qualifierNames = getResources().getStringArray(R.array.qualifiers);
         boolean[] checkedQualifiers;
+        int position = 0;
         // Restore the previously serialized activated item position.
         if (savedInstanceState != null && savedInstanceState.containsKey(PARAM_SELECTED_BOOLEAN_SPARSE)) {
             checkedQualifiers = savedInstanceState.getBooleanArray(PARAM_SELECTED_BOOLEAN_SPARSE);
+            position = savedInstanceState.getInt(PARAM_SELECTED_ITEM, 0);
         } else {
             checkedQualifiers = new boolean[qualifierNames.length];
         }
 
         mAdapter = new QualifierAdapter(getContext(), checkedQualifiers, this);
+        mAdapter.setSelectedPosition(position);
+        mAdapter.setHasStableIds(true);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -116,6 +120,7 @@ public class QualifierListFragment extends Fragment implements QualifierAdapter.
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putBooleanArray(PARAM_SELECTED_BOOLEAN_SPARSE, mAdapter.getSelectedItemArray());
+        outState.putInt(PARAM_SELECTED_ITEM, mAdapter.getSelectedPosition());
         super.onSaveInstanceState(outState);
     }
 

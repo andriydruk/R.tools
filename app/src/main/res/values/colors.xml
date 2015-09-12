@@ -25,17 +25,16 @@
     <color name="material_deep_teal_200">#ff80cbc4</color>
     <color name="material_deep_teal_500">#ff009688</color>
 
+    <color name="material_blue_grey_50">#ffeceff1</color>
+    <color name="material_blue_grey_100">#ffcfd8dc</color>
+    <color name="material_blue_grey_300">#ff90a4ae</color>
+    <color name="material_blue_grey_400">#ff78909c</color>
+    <color name="material_blue_grey_500">#ff607d8b</color>
+    <color name="material_blue_grey_600">#ff546e7a</color>
+    <color name="material_blue_grey_700">#ff455a64</color>
     <color name="material_blue_grey_800">#ff37474f</color>
-    <color name="material_blue_grey_900">#ff263238</color>
-    <color name="material_blue_grey_950">#ff21272b</color>
-
-    <color name="material_grey_100">#fff5f5f5</color>
-    <color name="material_grey_300">#ffe0e0e0</color>
-    <color name="material_grey_50">#fffafafa</color>
-    <color name="material_grey_600">#ff757575</color>
-    <color name="material_grey_800">#ff424242</color>
-    <color name="material_grey_850">#ff303030</color>
-    <color name="material_grey_900">#ff212121</color>
+    <color name="material_blue_grey_900">#ff263238</color> <!-- Primary color used by Settings -->
+    <color name="material_blue_grey_950">#ff21272b</color> <!-- Primary dark color used by Settings -->
 
     <color name="caution">#ffff4444</color>
     <color name="note">#ff0099cc</color>

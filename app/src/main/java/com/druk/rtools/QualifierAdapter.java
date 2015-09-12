@@ -36,6 +36,9 @@ public class QualifierAdapter extends RecyclerView.Adapter<QualifierAdapter.View
     private final Qualifier[] qualifiers;
     private final OnItemSelectedListener mListener;
     private final int mBackground;
+    private final int mSelectedBackground;
+
+    private int mSelectedPosition = 0;
 
     public QualifierAdapter(Context context, boolean[] checkedItems, OnItemSelectedListener listener) {
         this.qualifiers = Qualifier.values();
@@ -45,12 +48,14 @@ public class QualifierAdapter extends RecyclerView.Adapter<QualifierAdapter.View
         TypedValue mTypedValue = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.selectableItemBackground, mTypedValue, true);
         mBackground = mTypedValue.resourceId;
+
+        context.getTheme().resolveAttribute(R.attr.selectedItemBackground, mTypedValue, true);
+        mSelectedBackground = mTypedValue.resourceId;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View root = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.qualifier_item, viewGroup, false);
-        root.setBackgroundResource(mBackground);
         root.setOnClickListener(this);
         return new ViewHolder(root);
     }
@@ -63,6 +68,12 @@ public class QualifierAdapter extends RecyclerView.Adapter<QualifierAdapter.View
         viewHolder.mBinding.resSwitch.setChecked(checkedItems[i]);
         viewHolder.mBinding.resSwitch.setOnCheckedChangeListener(this);
         viewHolder.mBinding.resSwitch.setTag(i);
+        viewHolder.itemView.setBackgroundResource((i == mSelectedPosition) ? mSelectedBackground : mBackground);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
@@ -76,7 +87,11 @@ public class QualifierAdapter extends RecyclerView.Adapter<QualifierAdapter.View
 
     @Override
     public void onClick(View v) {
-        mListener.onItemSelected(v);
+        int oldSelectedPosition = mSelectedPosition;
+        mSelectedPosition = mListener.onItemSelected(v);
+        if (oldSelectedPosition != mSelectedPosition) {
+            notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -84,6 +99,14 @@ public class QualifierAdapter extends RecyclerView.Adapter<QualifierAdapter.View
         Integer position = (Integer) buttonView.getTag();
         checkedItems[position] = isChecked;
         mListener.onSelectedQualifiersChanged(getSelectedQualifiers());
+    }
+
+    public int getSelectedPosition() {
+        return mSelectedPosition;
+    }
+
+    public void setSelectedPosition(int selectedPosition) {
+        mSelectedPosition = selectedPosition;
     }
 
     public Collection<Qualifier> getSelectedQualifiers() {
