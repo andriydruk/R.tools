@@ -15,124 +15,103 @@
   v See the License for the specific language governing permissions and
   ~ limitations under the License.
 -->
-
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        xmlns:app="http://schemas.android.com/tools">
-        <data>
-                <import type="android.text.Html"/>
-                <import type="android.view.View"/>
-                <variable name="qualifier" type="com.druk.rtools.Qualifier"/>
-                <variable name="context" type="android.content.Context"/>
-        </data>
-        <android.support.v7.widget.CardView
-                android:id="@+id/card_view"
-                android:layout_gravity="top"
+        xmlns:app="http://schemas.android.com/tools"
+        android:id="@+id/card_view"
+        android:layout_gravity="top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        card_view:cardCornerRadius="4dp"
+        android:elevation="8dp">
+
+    <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/qualifier_value"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:background="?android:attr/colorBackground"
+            android:elevation="4dp"/>
+
+    <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/min_api_level"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:gravity="end|right|center_vertical"
+            android:textStyle="bold"
+            android:layout_marginRight="16dp"
+            android:textColor="@color/text_super_light"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:elevation="4dp"/>
+
+    <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/caution"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:drawableLeft="@drawable/ic_error_white_36dp"
+            android:padding="16dp"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:background="@color/caution"
+            android:textColor="@android:color/white"
+            android:textColorLink="@android:color/white"
+            android:gravity="center"/>
+
+    <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:drawableLeft="@drawable/ic_info_white_36dp"
+            android:padding="16dp"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:background="@color/note"
+            android:textColor="@android:color/white"
+            android:textColorLink="@android:color/white"
+            android:gravity="center"/>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:clickable="false"
+            android:scrollbars="none">
+
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                card_view:cardCornerRadius="4dp"
-                android:elevation="8dp">
+                android:orientation="vertical">
 
-                <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/qualifier_value"
-                        android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"
-                        android:gravity="center"
-                        android:textStyle="bold"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                        android:text="@{qualifier.getValue(context) ?? @string/undefined}"
-                        android:textColor="@{qualifier.getValue(context) != null ? @color/text_medium : @color/text_super_light}"
-                        android:background="?android:attr/colorBackground"
-                        android:elevation="4dp"/>
+            <View
+                    android:id="@+id/caution_dummy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"/>
 
-                <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/min_api_level"
-                        android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"
-                        android:gravity="end|right|center_vertical"
-                        android:textStyle="bold"
-                        android:layout_marginRight="16dp"
-                        android:textColor="@color/text_super_light"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                        android:text='@{qualifier.minApiLevel + " API"}'
-                        android:elevation="4dp"/>
-
-                <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/caution"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="?attr/actionBarSize"
-                        android:drawableLeft="@drawable/ic_error_white_36dp"
-                        android:padding="16dp"
-                        android:text="@{qualifier.cautionResource &lt; 0 ? qualifier.nameResource : qualifier.cautionResource}"
-                        android:textStyle="bold"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                        android:background="@color/caution"
-                        android:textColor="@android:color/white"
-                        android:textColorLink="@android:color/white"
-                        android:visibility="@{qualifier.cautionResource &lt; 0 ? View.GONE : View.VISIBLE}"
-                        android:gravity="center"
-                        app:movementMethod='@{"link"}'/>
-
-                <android.support.v7.widget.AppCompatTextView
-                        android:id="@+id/note"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:drawableLeft="@drawable/ic_info_white_36dp"
-                        android:padding="16dp"
-                        android:text="@{qualifier.noteResource &lt; 0 ? qualifier.nameResource : qualifier.noteResource}"
-                        android:textStyle="bold"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                        android:background="@color/note"
-                        android:textColor="@android:color/white"
-                        android:textColorLink="@android:color/white"
-                        android:visibility="@{qualifier.noteResource &lt; 0 ? View.GONE : View.VISIBLE}"
-                        android:gravity="center"
-                        app:movementMethod='@{"link"}'/>
-
-                <ScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="?attr/actionBarSize"
-                        android:clickable="false"
-                        android:scrollbars="none">
-
-                        <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <View
-                                        android:id="@+id/caution_dummy"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:clickable="false"
-                                        android:visibility="@{qualifier.cautionResource &lt; 0 ? View.GONE : View.VISIBLE}"/>
-
-                                <android.support.v7.widget.AppCompatTextView
-                                        android:id="@+id/qualifier_detail"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:padding="16dp"
-                                        android:background="?android:attr/colorBackground"
-                                        android:textColor="@color/text_medium"
-                                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                                        android:text="@{qualifier.descriptionResource}"
-                                        app:movementMethod='@{"link"}'
-                                        android:elevation="4dp"/>
+            <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/qualifier_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp"
+                    android:background="?android:attr/colorBackground"
+                    android:textColor="@color/text_medium"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    app:movementMethod='@{"link"}'
+                    android:elevation="4dp"/>
 
 
-                                <View
-                                        android:id="@+id/note_dummy"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:clickable="false"
-                                        android:visibility="@{qualifier.noteResource &lt; 0 ? View.GONE : View.VISIBLE}"/>
+            <View
+                    android:id="@+id/note_dummy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"/>
 
-                        </LinearLayout>
-                </ScrollView>
-
-        </android.support.v7.widget.CardView>
-</layout>
+        </LinearLayout>
+    </ScrollView>
+</android.support.v7.widget.CardView>

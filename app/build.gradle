@@ -1,9 +1,9 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.android.databinding'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         applicationId "com.druk.rtools"
@@ -26,11 +26,14 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 }
 
 dependencies {
     //Android Support Libraries Version
-    def supportLibrary = '23.0.1'
+    def supportLibrary = '23.1.1'
 
     compile "com.android.support:support-v4:${supportLibrary}"
     compile "com.android.support:appcompat-v7:${supportLibrary}"
@@ -38,4 +41,18 @@ dependencies {
     compile "com.android.support:recyclerview-v7:${supportLibrary}"
     compile "com.android.support:cardview-v7:${supportLibrary}"
     compile "com.android.support:support-annotations:${supportLibrary}"
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+
+buildscript {
+    ext.kotlin_version = '1.0.0'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+repositories {
+    mavenCentral()
 }
