@@ -17,22 +17,10 @@
 package com.druk.rtools
 
 import android.os.Build
-import android.text.method.LinkMovementMethod
-import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
-import android.widget.TextView
 
 object Utils {
-
-    val MOVEMENT_METHOD_LINK = "link"
-
-    fun setMovementMethod(view: TextView, movementMethod: String) {
-        when (movementMethod) {
-            MOVEMENT_METHOD_LINK -> view.movementMethod = LinkMovementMethod.getInstance()
-            else -> Log.e("BindingUtility", "Unknown setMovementMethod argument: " + movementMethod)
-        }
-    }
 
     fun getViewSize(view: View, runnable: Runnable) {
         view.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {

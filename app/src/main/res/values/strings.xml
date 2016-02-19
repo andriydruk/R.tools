@@ -267,7 +267,7 @@ visible or not.\n
 resources, the system uses the <b>keysexposed</b> resources regardless of whether a
 keyboard is visible, as long as the system has a software keyboard enabled.\n
         \tAlso see the configuration fields <b><a href="http://developer.android.com/reference/android/content/res/Configuration.html#hardKeyboardHidden">hardKeyboardHidden</a></b> and <b><a href="http://developer.android.com/reference/android/content/res/Configuration.html#keyboardHidden">keyboardHidden</a></b>, which indicate the visibility of a hardware
-keyboard and and the visibility of any kind of keyboard (including software), respectively.
+keyboard and the visibility of any kind of keyboard (including software), respectively.
     </string>
 
     <string name="text_input_description">

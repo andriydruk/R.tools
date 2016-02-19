@@ -18,14 +18,14 @@ package com.druk.rtools
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.SwitchCompat
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
-import android.widget.TextView
 import java.util.LinkedList
+
+import kotlinx.android.synthetic.main.qualifier_item.view.*
 
 class QualifierAdapter(context: Context, val selectedItemArray: BooleanArray, private val mListener: QualifierAdapter.OnItemSelectedListener)
     : RecyclerView.Adapter<QualifierAdapter.ViewHolder>(), View.OnClickListener, CompoundButton.OnCheckedChangeListener {
@@ -55,18 +55,18 @@ class QualifierAdapter(context: Context, val selectedItemArray: BooleanArray, pr
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         val qualifier = getItem(i)
-        viewHolder.name.setText(qualifier.nameResource)
-        if (qualifier.getValue(viewHolder.name.context) != null) {
-            viewHolder.value.text = qualifier.getValue(viewHolder.name.context)
-            viewHolder.resSwitch.isEnabled = true
+        viewHolder.itemView.qualifier_name.setText(qualifier.nameResource)
+        if (qualifier.getValue(viewHolder.itemView.context) != null) {
+            viewHolder.itemView.qualifier_value.text = qualifier.getValue(viewHolder.itemView.context)
+            viewHolder.itemView.res_switch.isEnabled = true
         } else {
-            viewHolder.value.setText(R.string.undefined)
-            viewHolder.resSwitch.isEnabled = false
+            viewHolder.itemView.qualifier_value.setText(R.string.undefined)
+            viewHolder.itemView.res_switch.isEnabled = false
         }
-        viewHolder.resSwitch.setOnCheckedChangeListener(null)
-        viewHolder.resSwitch.isChecked = selectedItemArray[i]
-        viewHolder.resSwitch.setOnCheckedChangeListener(this)
-        viewHolder.resSwitch.tag = i
+        viewHolder.itemView.res_switch.setOnCheckedChangeListener(null)
+        viewHolder.itemView.res_switch.isChecked = selectedItemArray[i]
+        viewHolder.itemView.res_switch.setOnCheckedChangeListener(this)
+        viewHolder.itemView.res_switch.tag = i
         viewHolder.itemView.setBackgroundResource(if (i == selectedPosition) mSelectedBackground else mBackground)
     }
 
@@ -109,14 +109,7 @@ class QualifierAdapter(context: Context, val selectedItemArray: BooleanArray, pr
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val name: TextView
-        val value: TextView
-        val resSwitch: SwitchCompat
-
         init {
-            name = itemView.findViewById(R.id.qualifier_name) as TextView
-            value = itemView.findViewById(R.id.qualifier_value) as TextView
-            resSwitch = itemView.findViewById(R.id.res_switch) as SwitchCompat
         }
     }
 

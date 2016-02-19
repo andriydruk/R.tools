@@ -24,6 +24,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_qualifier_list.view.*
 
 /**
  * A list fragment representing a list of Qualifiers. This fragment
@@ -87,7 +88,7 @@ class QualifierListFragment : Fragment(), QualifierAdapter.OnItemSelectedListene
         mAdapter = QualifierAdapter(context, checkedQualifiers, this)
         mAdapter!!.selectedPosition = position
         mAdapter!!.setHasStableIds(true)
-        mRecyclerView = view!!.findViewById(R.id.recycler_view) as RecyclerView
+        mRecyclerView = view!!.recycler_view
         mRecyclerView!!.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         mRecyclerView!!.adapter = mAdapter
     }
@@ -130,7 +131,7 @@ class QualifierListFragment : Fragment(), QualifierAdapter.OnItemSelectedListene
             override fun onItemSelected(id: Int) {
             }
 
-            override fun onFolderNameChanged(id: String) {
+            override fun onFolderNameChanged(folderName: String) {
             }
         }
 

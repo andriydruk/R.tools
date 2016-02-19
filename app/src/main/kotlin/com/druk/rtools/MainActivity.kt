@@ -24,13 +24,13 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
+
+import kotlinx.android.synthetic.main.activity_main.*;
 
 class MainActivity : AppCompatActivity(), QualifierListFragment.Callbacks, View.OnClickListener {
 
@@ -39,10 +39,10 @@ class MainActivity : AppCompatActivity(), QualifierListFragment.Callbacks, View.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        findViewById(R.id.qualifiers).setOnClickListener(this)
-        setSupportActionBar(findViewById(R.id.toolbar) as Toolbar)
+        qualifiers.setOnClickListener(this)
+        setSupportActionBar(toolbar)
 
-        if (findViewById(R.id.qualifier_detail_container) != null && savedInstanceState == null) {
+        if (qualifier_detail_container != null && savedInstanceState == null) {
             supportFragmentManager.beginTransaction().add(R.id.qualifier_detail_container, QualifierDetailFragment.newInstance(Qualifier.MMC.ordinal)).commit()
         }
     }
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity(), QualifierListFragment.Callbacks, View.
     }
 
     override fun onItemSelected(id: Int) {
-        if (findViewById(R.id.qualifier_detail_container) != null) {
+        if (qualifier_detail_container != null) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
             // fragment transaction.
@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity(), QualifierListFragment.Callbacks, View.
 
     override fun onFolderNameChanged(folderName: String) {
         this.folderName = folderName
-        val textView = findViewById(R.id.qualifiers) as TextView
+        val textView = qualifiers
         if (TextUtils.isEmpty(folderName)) {
             textView.setText(R.string.no_item)
             textView.setTextColor(getColor(R.color.material_deep_teal_200))

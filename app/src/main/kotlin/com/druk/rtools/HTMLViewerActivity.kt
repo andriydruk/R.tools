@@ -20,14 +20,13 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.View
 import android.webkit.WebChromeClient
-import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_html_viewer.*
 
 import java.net.URISyntaxException
 
@@ -38,27 +37,21 @@ import java.net.URISyntaxException
  */
 class HTMLViewerActivity : AppCompatActivity() {
 
-    private var mWebView: WebView? = null
-    private var mLoading: View? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_html_viewer)
 
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
+        val toolbar = toolbar
         setSupportActionBar(toolbar)
         if (supportActionBar != null) {
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         }
 
-        mWebView = findViewById(R.id.webview) as WebView
-        mLoading = findViewById(R.id.loading)
+        webview!!.setWebChromeClient(ChromeClient())
+        webview!!.setWebViewClient(ViewClient())
 
-        mWebView!!.setWebChromeClient(ChromeClient())
-        mWebView!!.setWebViewClient(ViewClient())
-
-        val s = mWebView!!.settings
+        val s = webview!!.settings
         s.useWideViewPort = true
         s.setSupportZoom(true)
         s.builtInZoomControls = true
@@ -77,12 +70,12 @@ class HTMLViewerActivity : AppCompatActivity() {
             title = intent.getStringExtra(Intent.EXTRA_TITLE)
         }
 
-        mWebView!!.loadUrl(intent.data.toString())
+        webview!!.loadUrl(intent.data.toString())
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mWebView!!.destroy()
+        webview!!.destroy()
     }
 
     private inner class ChromeClient : WebChromeClient() {
@@ -95,7 +88,7 @@ class HTMLViewerActivity : AppCompatActivity() {
 
     private inner class ViewClient : WebViewClient() {
         override fun onPageFinished(view: WebView, url: String) {
-            mLoading!!.visibility = View.GONE
+            loading!!.visibility = View.GONE
         }
 
         override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {

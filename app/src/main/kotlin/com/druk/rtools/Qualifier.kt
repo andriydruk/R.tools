@@ -50,8 +50,6 @@ enum class Qualifier {
     var noteResource = -1
     var minApiLevel = 1
 
-    var descriptionPath = "mcc_description.html" //assets file path
-
     internal constructor(name: Int, resource: Int, minApiLevel: Int) {
         this.nameResource = name
         this.descriptionResource = resource

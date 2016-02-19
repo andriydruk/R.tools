@@ -24,12 +24,12 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.AppCompatTextView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.activity_license.*
 
 class LicensesActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -40,7 +40,6 @@ class LicensesActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_license)
 
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
         if (supportActionBar != null) {
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -49,9 +48,8 @@ class LicensesActivity : AppCompatActivity(), View.OnClickListener {
         mLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         mAdapter = OpenSourceComponentAdapter(this, LICENSE_SOFTWARE, arrayOf(ANDROID_ASSETS_FILE_PATH + ANDROID_OPEN_SOURCE_PROJECT_LICENSE, ANDROID_ASSETS_FILE_PATH + ANDROID_OPEN_SOURCE_PROJECT_LICENSE, ANDROID_ASSETS_FILE_PATH + ANDROID_OPEN_SOURCE_PROJECT_LICENSE, ANDROID_ASSETS_FILE_PATH + ANDROID_SOFTWARE_DEVELOPMENT_KIT))
 
-        val recyclerView = findViewById(R.id.recycler_view) as RecyclerView
-        recyclerView.layoutManager = mLayoutManager
-        recyclerView.adapter = mAdapter
+        recycler_view.layoutManager = mLayoutManager
+        recycler_view.adapter = mAdapter
     }
 
     override fun onResume() {
@@ -133,6 +131,5 @@ class LicensesActivity : AppCompatActivity(), View.OnClickListener {
         private val ANDROID_ASSETS_FILE_PATH = "file:///android_asset/"
         private val ANDROID_OPEN_SOURCE_PROJECT_LICENSE = "ANDROID-OPEN-SOURCE-PROJECT-LICENSE.txt"
         private val ANDROID_SOFTWARE_DEVELOPMENT_KIT = "ANDROID-SOFTWARE-DEVELOPMENT-KIT.txt"
-        private val APACHE_LICENSE = "APACHE-LICENSE-2.0.txt"
     }
 }

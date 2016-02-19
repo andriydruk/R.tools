@@ -16,12 +16,12 @@
 
 package com.druk.rtools
 
-import android.support.v7.app.AppCompatActivity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.NavUtils
-import android.support.v7.widget.Toolbar
+import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import kotlinx.android.synthetic.main.activity_qualifier_detail.*
 
 /**
  * An activity representing a single Qualifier detail screen. This
@@ -40,7 +40,6 @@ class QualifierDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_qualifier_detail)
 
         // Show the Up button in the action bar.
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
