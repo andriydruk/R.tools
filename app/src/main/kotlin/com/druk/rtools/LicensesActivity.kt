@@ -46,7 +46,10 @@ class LicensesActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         mLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        mAdapter = OpenSourceComponentAdapter(this, LICENSE_SOFTWARE, arrayOf(ANDROID_ASSETS_FILE_PATH + ANDROID_OPEN_SOURCE_PROJECT_LICENSE, ANDROID_ASSETS_FILE_PATH + ANDROID_OPEN_SOURCE_PROJECT_LICENSE, ANDROID_ASSETS_FILE_PATH + ANDROID_OPEN_SOURCE_PROJECT_LICENSE, ANDROID_ASSETS_FILE_PATH + ANDROID_SOFTWARE_DEVELOPMENT_KIT))
+        mAdapter = OpenSourceComponentAdapter(this, LICENSE_SOFTWARE, arrayOf(ANDROID_ASSETS_FILE_PATH + ANDROID_OPEN_SOURCE_PROJECT_LICENSE,
+                ANDROID_ASSETS_FILE_PATH + ANDROID_OPEN_SOURCE_PROJECT_LICENSE,
+                ANDROID_ASSETS_FILE_PATH + ANDROID_OPEN_SOURCE_PROJECT_LICENSE,
+                ANDROID_ASSETS_FILE_PATH + ANDROID_SOFTWARE_DEVELOPMENT_KIT))
 
         recycler_view.layoutManager = mLayoutManager
         recycler_view.adapter = mAdapter
@@ -82,7 +85,8 @@ class LicensesActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    class OpenSourceComponentAdapter constructor(context: Context, private val componentNames: Array<String>, private val licensePaths: Array<String>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    class OpenSourceComponentAdapter constructor(context: Context, private val componentNames: Array<String>, private val licensePaths: Array<String>)
+    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         private val mBackground: Int
 

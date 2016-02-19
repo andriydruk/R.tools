@@ -23,12 +23,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
-import java.util.LinkedList
-
 import kotlinx.android.synthetic.main.qualifier_item.view.*
+import java.util.*
 
 class QualifierAdapter(context: Context, val selectedItemArray: BooleanArray, private val mListener: QualifierAdapter.OnItemSelectedListener)
-    : RecyclerView.Adapter<QualifierAdapter.ViewHolder>(), View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+: RecyclerView.Adapter<QualifierAdapter.ViewHolder>(), View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     private val qualifiers: Array<Qualifier>
     private val mBackground: Int

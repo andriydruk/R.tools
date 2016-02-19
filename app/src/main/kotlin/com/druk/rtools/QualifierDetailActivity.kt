@@ -47,7 +47,8 @@ class QualifierDetailActivity : AppCompatActivity() {
         setTitle(qualifier.nameResource)
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().add(R.id.qualifier_detail_container, QualifierDetailFragment.newInstance(qualifier.ordinal)).commit()
+            supportFragmentManager.beginTransaction().add(R.id.qualifier_detail_container,
+                    QualifierDetailFragment.newInstance(qualifier.ordinal)).commit()
         }
     }
 
