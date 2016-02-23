@@ -18,7 +18,6 @@
 <android.support.v7.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        xmlns:app="http://schemas.android.com/tools"
         android:id="@+id/card_view"
         android:layout_gravity="top"
         android:layout_width="match_parent"
@@ -102,7 +101,6 @@
                     android:background="?android:attr/colorBackground"
                     android:textColor="@color/text_medium"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    app:movementMethod='@{"link"}'
                     android:elevation="4dp"/>
 
 
