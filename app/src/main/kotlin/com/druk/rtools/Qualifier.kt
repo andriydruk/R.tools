@@ -33,6 +33,7 @@ enum class Qualifier {
     AH(R.string.ah, R.string.ah_description, 13, R.string.orientation_caution),
     SIZE(R.string.size, R.string.size_description, 4, R.string.size_caution, R.string.size_note),
     ASPECT(R.string.aspect, R.string.aspect_description, 4),
+    ROUND(R.string.round, R.string.round_description, 23),
     ORIENTATION(R.string.orientation, R.string.orientation_description, 1, R.string.orientation_caution),
     UI_MODE(R.string.ui_mode, R.string.ui_mode_description, 8, R.string.ui_mode_caution),
     NIGHT_MODE(R.string.night_mode, R.string.night_mode_description, 8, R.string.night_mode_caution),
@@ -107,6 +108,14 @@ enum class Qualifier {
                     Configuration.SCREENLAYOUT_LONG_NO -> return "notlong"
                     Configuration.SCREENLAYOUT_LONG_UNDEFINED -> return null
                     else -> return null
+                }
+            }
+            ROUND -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    return if (config.isScreenRound) "round" else "notround";
+                }
+                else{
+                    return null;
                 }
             }
             ORIENTATION -> {

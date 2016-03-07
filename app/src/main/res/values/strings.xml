@@ -26,6 +26,7 @@
         <item>@string/ah</item>
         <item>@string/size</item>
         <item>@string/aspect</item>
+        <item>@string/round</item>
         <item>@string/orientation</item>
         <item>@string/ui_mode</item>
         <item>@string/night_mode</item>
@@ -47,6 +48,7 @@
     <string name="ah">Available height</string>
     <string name="size">Screen size</string>
     <string name="aspect">Screen aspect</string>
+    <string name="round">Round screen</string>
     <string name="orientation">Screen orientation</string>
     <string name="ui_mode">UI mode</string>
     <string name="night_mode">Night mode</string>
@@ -195,6 +197,12 @@ Multiple Screens</a> developer guide.
 is not related to the screen orientation.\n
         \tAlso see the <b><a href="http://developer.android.com/reference/android/content/res/Configuration.html#screenLayout">screenLayout</a></b> configuration field,
 which indicates whether the screen is long.
+    </string>
+
+    <string name="round_description">
+        \t<b>round:</b> Round screens, such as a round wearable device\n
+        \t<b>notround:</b> Rectangular screens, such as phones or tablets\n
+        \tAlso see the <b><a href="http://developer.android.com/reference/android/content/res/Configuration.html#isScreenRound()">isScreenRound()</a></b> configuration method, which indicates whether the screen is round.
     </string>
 
     <string name="orientation_description">
