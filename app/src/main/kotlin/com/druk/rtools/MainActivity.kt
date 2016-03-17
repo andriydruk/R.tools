@@ -23,6 +23,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.view.Menu
@@ -100,7 +101,7 @@ class MainActivity : AppCompatActivity(), QualifierListFragment.Callbacks, View.
         val textView = qualifiers
         if (TextUtils.isEmpty(folderName)) {
             textView.setText(R.string.no_item)
-            textView.setTextColor(getColor(R.color.material_deep_teal_200))
+            textView.setTextColor(ContextCompat.getColor(this, R.color.material_deep_teal_200))
         } else {
             textView.text = folderName
             textView.setTextColor(Color.WHITE)
