@@ -10,8 +10,8 @@ android {
         applicationId "com.druk.rtools"
         minSdkVersion 7
         targetSdkVersion 23
-        versionCode 4
-        versionName "1.2.0"
+        versionCode 6
+        versionName "1.2.1"
     }
     buildTypes {
         release {
@@ -51,7 +51,7 @@ dependencies {
 }
 
 buildscript {
-    ext.kotlin_version = '1.0.0'
+    ext.kotlin_version = '1.0.1'
     repositories {
         mavenCentral()
     }
